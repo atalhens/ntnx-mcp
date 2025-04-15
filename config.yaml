@@ -1,0 +1,81 @@
+embedders: {}
+eval:
+  evaluators: {}
+  general:
+    dataset: null
+    max_concurrency: 8
+    output_dir: /tmp/aiq/examples/default
+    profiler: null
+functions:
+  
+  list_images:
+    _type: mcp_tool_wrapper
+    description: null
+    mcp_tool_name: list_images
+    url: http://localhost:8085/sse
+  create_image:
+    _type: mcp_tool_wrapper
+    description: null
+    mcp_tool_name: create_image
+    url: http://localhost:8085/sse
+  create_vm:
+    _type: mcp_tool_wrapper
+    description: null
+    mcp_tool_name: create_vm
+    url: http://localhost:8085/sse
+  get_logs:
+    _type: mcp_tool_wrapper
+    description: null
+    mcp_tool_name: get_logs
+    url: http://localhost:8085/sse
+  get_alerts:
+    _type: mcp_tool_wrapper
+    description: null
+    mcp_tool_name: get_alerts
+    url: http://localhost:8085/sse
+
+general:
+  front_end:
+    _type: fastapi
+  telemetry:
+    logging: {}
+    tracing: {}
+  use_uvloop: true
+llms:
+  answer-checker-agent:
+    _type: nim
+    model_name: meta/llama-3.1-70b-instruct
+    temperature: 0.0
+    max_tokens: 1024
+  deep-research-agent:
+    _type: nim
+    model_name: meta/llama-3.1-70b-instruct
+    temperature: 0.0
+    max_tokens: 1024
+  score-card-generator:
+    _type: nim
+    model_name: meta/llama-3.1-70b-instruct
+    temperature: 0.0
+    max_tokens: 1024
+memory: {}
+retrievers: {}
+workflow:
+  _type: react_agent
+  additional_instructions: null
+  description: This agent is responsible for calling the tools it has under it correctly. 
+  include_tool_input_schema_in_tool_description: true
+  llm_name: answer-checker-agent
+  max_history: 15
+  max_iterations: 15
+  max_retries: 1
+  retry_parsing_errors: true
+  system_prompt: null
+  tool_names:
+    - list_images
+    - create_image
+    - create_vm
+    - get_logs
+    - get_alerts
+  use_openai_api: false
+  verbose: false
+  
